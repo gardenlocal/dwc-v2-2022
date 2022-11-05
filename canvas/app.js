@@ -63,7 +63,7 @@ class App {
     this.socket.on('creatureEvolveBroadcast', this.onCreatureEvolve)
     this.socket.on('disconnect', () => { window.location.reload() })
 
-    this.selfGarden = null
+    this.selfGarden = null  // may need null check selfGarden
     this.onlineCreatures = {}
     this.onlineUsers = {}
     this.initData = {
@@ -156,6 +156,9 @@ class App {
 
     const currUser = users.find((u => (u.uid == this.user.uid)))
     
+    if(!currUser) {
+      return;
+    }
     this.selfGarden = currUser ? currUser.gardenSection : null
     this.selfUid = currUser ? currUser.uid : null
 

@@ -59,7 +59,8 @@ export default class ResidueBackground extends PIXI.Container {
     this.timeOffset = 0.0
     if (window.APP.getIsAdmin()) {
     } else {
-      let mod = (4 + ((window.APP.selfGarden.y) / 1000) % 4) % 4
+      // selfGarden x, y: 1의 자리로 들어옴.
+      let mod = (4 + ((window.APP.selfGarden.y) / 1000) % 4) % 4 
       this.timeOffset = 2 * (mod % 2)
     }
 
@@ -234,7 +235,7 @@ export default class ResidueBackground extends PIXI.Container {
       this.gradientUniforms.u_scale = this.s * 1.0
             
       if (window.APP.pixiApp.adminContainer.scale.x > 0.5) {
-        const pg = -window.APP.pixiApp.adminContainer.position.y
+        const pg = -window.APP.pixiApp.adminContainer.position.y * 1000;
         let mod = (4 + (Math.round(pg / 1000) % 4) % 4)
         this.timeOffset = 2 * (mod % 2)
       }

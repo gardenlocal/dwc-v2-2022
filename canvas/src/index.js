@@ -236,7 +236,7 @@ export default class PixiAppWrapper {
               }
               
               this.adminContainer.scale.set(1)
-              this.adminContainer.position.set(-user.gardenSection.x, -user.gardenSection.y)
+              this.adminContainer.position.set(-user.gardenSection.x * 1000, -user.gardenSection.y * 1000)
             } else {
               this.adminContainer.position.set(400, 400)
               this.adminContainer.scale.set(0.2)
@@ -248,13 +248,13 @@ export default class PixiAppWrapper {
       } else {
         //this.gardenLayer = new UserGarden(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden, window.APP.selfUid)
         this.gardenLayer = new GardensLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)
-        this.gardenLayer.x = -window.APP.selfGarden.x
-        this.gardenLayer.y = -window.APP.selfGarden.y  
+        this.gardenLayer.x = -window.APP.selfGarden.x * 1000
+        this.gardenLayer.y = -window.APP.selfGarden.y * 1000
         this.pixiApp.stage.addChild(this.gardenLayer)
   
         this.creaturesLayer = new CreaturesLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)      
-        this.creaturesLayer.x = -window.APP.selfGarden.x
-        this.creaturesLayer.y = -window.APP.selfGarden.y  
+        this.creaturesLayer.x = -window.APP.selfGarden.x * 1000
+        this.creaturesLayer.y = -window.APP.selfGarden.y * 1000
         this.pixiApp.stage.addChild(this.creaturesLayer)
   
         if(!window.IS_ADMIN){

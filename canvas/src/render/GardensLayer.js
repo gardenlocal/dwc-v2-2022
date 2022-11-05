@@ -31,8 +31,8 @@ export default class GardensLayer extends PIXI.Container {
 
       if (!window.APP.getIsAdmin()) {
         let isWideScreen = (window.innerWidth > window.innerHeight)
-        let dX = Math.abs(u.gardenSection.x - currentUser.gardenSection.x)
-        let dY = Math.abs(u.gardenSection.y - currentUser.gardenSection.y)
+        let dX = Math.abs(u.gardenSection.x * 1000 - currentUser.gardenSection.x * 1000)
+        let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
         let dZero = (isWideScreen) ? (dY) : (dX)          
         if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
@@ -41,8 +41,11 @@ export default class GardensLayer extends PIXI.Container {
       }
       
       const garden = new UserGarden(this.users, this.creatures, u.gardenSection, u.uid)
-      garden.x = u.gardenSection.x
-      garden.y = u.gardenSection.y
+      garden.x = u.gardenSection.x * 1000
+      garden.y = u.gardenSection.y * 1000
+      console.log(`draw backgrounds ${garden.x}, ${garden.y}`);
+      console.log(this.users);
+
       this.addChild(garden)
 
       if (u.uid == currentUser.uid) {   
@@ -122,8 +125,8 @@ export default class GardensLayer extends PIXI.Container {
         if (!window.APP.getIsAdmin()) {
           let u = onlineUsers[k]
           let isWideScreen = (window.innerWidth > window.innerHeight)
-          let dX = Math.abs(u.gardenSection.x - currentUser.gardenSection.x)
-          let dY = Math.abs(u.gardenSection.y - currentUser.gardenSection.y)
+          let dX = Math.abs((u.gardenSection.x * 1000) - (currentUser.gardenSection.x * 1000))
+          let dY = Math.abs((u.gardenSection.y * 1000) - (currentUser.gardenSection.y * 1000))
           let dOne = (isWideScreen) ? (dX) : (dY)
           let dZero = (isWideScreen) ? (dY) : (dX)          
           if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
@@ -132,8 +135,8 @@ export default class GardensLayer extends PIXI.Container {
         }  
 
         const garden = new UserGarden(this.users, this.creatures, onlineUsers[k].gardenSection, onlineUsers[k].uid)
-        garden.x = onlineUsers[k].gardenSection.x
-        garden.y = onlineUsers[k].gardenSection.y
+        garden.x = onlineUsers[k].gardenSection.x * 1000
+        garden.y = onlineUsers[k].gardenSection.y * 1000
         this.addChild(garden)  
       }
     }    
