@@ -21,7 +21,10 @@ export default class GardensLayer extends PIXI.Container {
   }
 
   drawBackgrounds() {
-    let currentUser = Object.values(this.users).filter(u => u.uid == window.UID)[0]
+    let currentUser = Object.values(this.users).filter(u => {
+      console.log(u, window.UID);
+      return u.uid == window.UID
+    })[0]
 
     Object.values(this.users).forEach(u => {
       if (!u.gardenSection) return

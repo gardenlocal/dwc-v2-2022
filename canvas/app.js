@@ -46,13 +46,13 @@ class App {
 
     this.socket = await io(`${this.serverUrl}:${this.serverPort}`, {
       query: {
-        uid: this.user.id,
+        uid: this.user.uid,
         creatureName: this.user.creatureName
       }
     })
 
     // client's UID
-    window.UID = this.user.id
+    window.UID = this.user.uid
 
     this.socket.on('connect', this.onSocketConnect)
     this.socket.on('connect_error', this.onSocketConnectError)
@@ -119,10 +119,10 @@ class App {
     this.pixiApp.reset()
   }
 
-  sendEvolveCreature = (_id) => {
-    this.socket.emit('creatureEvolve', { _id })
+  sendEvolveCreature = (id) => {
+    this.socket.emit('creatureEvolve', { id })
 
-    console.log("sendEvolveCreature-------------", _id)
+    console.log("sendEvolveCreature-------------", id)
     if(!window.IS_ADMIN){
       if(window.AUDIO) {
         console.log("CREATURE EVOLVE SOUND:", window.AUDIO._sounds)
@@ -146,14 +146,16 @@ class App {
     }
   }
 
-  onCreatureEvolve = ({ _id }) => {
-    this.pixiApp.evolveCreature(_id)
+  onCreatureEvolve = ({ id }) => {
+    this.pixiApp.evolveCreature(id)
   }
 
   onUsersUpdate = (users) => {
     // console.log('onUsersUpdate: ', JSON.stringify(users).length, Object.keys(users).length)
     // get single user's garden data
-    const currUser = users.find((u => (u.uid == this.user.id)))
+
+    const currUser = users.find((u => (u.uid == this.user.uid)))
+    
     this.selfGarden = currUser ? currUser.gardenSection : null
     this.selfUid = currUser ? currUser.uid : null
 
@@ -184,7 +186,7 @@ class App {
 
     this.onlineCreatures = onlineCreatures.reduce((acc, el) => {
       if (!!this.onlineUsers[el.owner?.uid]) {
-        acc[el._id] = el
+        acc[el.id] = el
       }
       return acc
     }, {})
@@ -198,9 +200,10 @@ class App {
   }
 
   createOrFetchUser() {
+    console.log(this.isTest);
     if (this.isTest) {
       return {
-        id: uid(),
+        uid: uid(),
         name: '',
         creatureName: this.creatureName
       }  
@@ -219,7 +222,7 @@ class App {
 
     if (!user) {
       user = JSON.stringify({
-        id: uid(),
+        uid: uid(),
         name: '',
         creatureName: this.creatureName
       })

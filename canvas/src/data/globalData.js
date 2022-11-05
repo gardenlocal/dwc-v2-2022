@@ -38,7 +38,7 @@ export function updateCreatures (creatures, users) {
 
     // check if creature's owner is online
     if(onlineUsers.includes(c.owner.username)) { 
-      onlineCreatures[c._id] = c;     
+      onlineCreatures[c.id] = c;     
     }
   }
 

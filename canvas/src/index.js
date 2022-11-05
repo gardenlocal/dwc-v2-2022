@@ -196,8 +196,8 @@ export default class PixiAppWrapper {
       this.creaturesLayer.updateCreatureData(creatureData)
     }
   }
-  evolveCreature(_id) {
-    this.creaturesLayer.evolveCreature(_id)
+  evolveCreature(id) {
+    this.creaturesLayer.evolveCreature(id)
   }
   render() {
     if (window.APP.isTest) {
