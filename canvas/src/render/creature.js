@@ -214,13 +214,6 @@ export default class Creature extends PIXI.Container {
         await sleep(this.movementDuration * 1000)        
     }
 
-    // playSoundtrack() {
-    //     console.log("CREATURE SOUND:", window.AUDIO._sounds)
-    //     if(!window.AUDIO._sounds?.creatureTapSound?.isPlaying){ // if not playing
-    //         window.AUDIO.play('creatureTapSound')
-    //     }
-    // }
-
     tick(d) {
         const delta = PIXI.Ticker.shared.elapsedMS
         this.frame++

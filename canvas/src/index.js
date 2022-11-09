@@ -109,44 +109,12 @@ export default class PixiAppWrapper {
     //   return acc
     // }, {})
 
-    await this.loadBackgroundSound()
-
     // load sound effects for users only
     if(!window.IS_ADMIN) {
+      window.AUDIO = sound;
       this.loadEvolveSound()
       this.loadMoveSound()
     }
-  }
-
-  async loadBackgroundSound() {
-    // load backgrond sound
-    let soundtrack;
-    switch(window.GARDEN) {
-      case 'moss':
-        soundtrack = require('../assets/audio/1.mp3');
-        break;
-      case 'lichen':
-        soundtrack = require('../assets/audio/3.mp3');
-        break;
-      case 'mushroom':
-        soundtrack = require('../assets/audio/2.mp3');
-        break;
-      case 'all':
-        soundtrack = require('../assets/audio/3.mp3');
-        break;
-    }
-
-    if(soundtrack) {
-      sound.add('background', {
-        url: soundtrack,
-        preload: true,
-        loop: true,
-        autoPlay: true
-      });
-    }
-
-    window.AUDIO = sound;
-
   }
 
   async loadEvolveSound() {
@@ -257,10 +225,6 @@ export default class PixiAppWrapper {
         this.creaturesLayer.y = -window.APP.selfGarden.y * 1000
         this.pixiApp.stage.addChild(this.creaturesLayer)
   
-        if(!window.IS_ADMIN){
-          console.log("play soundtrack for users only")
-          this.playSoundtrack()
-        }
       }  
     }
 
@@ -268,29 +232,6 @@ export default class PixiAppWrapper {
 
     this.isLoading = false
     this.loadingScreen.alpha = 0
-  }
-
-  playSoundtrack() {
-    var root = document.getElementById("root")
-    // mobile
-    root.addEventListener('touchstart', () => {
-      console.log('touch: start music')
-
-      if(!sound._sounds?.background?.isPlaying){ // if not playing
-        sound.play('background')
-        console.log(sound._sounds.background)
-      }
-    })
-
-    // test for pc version
-    root.addEventListener('click', () => {
-      console.log('click: start music')
-
-      if(!sound._sounds?.background?.isPlaying){ // if not playing
-        sound.play('background')
-        console.log(sound._sounds.background)
-      }
-    })
   }
 
   stop() {

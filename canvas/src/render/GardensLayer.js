@@ -97,14 +97,6 @@ export default class GardensLayer extends PIXI.Container {
     }
   }
 
-  // playSoundtrack() {
-  //   console.log("GARDEN SOUND:", window.AUDIO._sounds)
-
-  //   if(!window.AUDIO._sounds?.gardenTapSound?.isPlaying){ // if not playing
-  //     window.AUDIO.play('gardenTapSound')
-  //   }  
-  // }
-
   updateOnlineUsers(onlineUsers) {
     let currentUser = Object.values(this.users).filter(u => u.uid == window.UID)[0]
 
