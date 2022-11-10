@@ -1,4 +1,4 @@
-import env from './env.js'
+import env, { SERVER_API } from './env.js';
 import { sleep } from './src/render/utils.js';
 import PixiApp from './src/index'
 import { uid } from 'uid';
@@ -7,7 +7,8 @@ import axios from 'axios';
 // import 'regenerator-runtime/runtime'
 import { ALTTEXT_KO } from './altText-constants.js';
 
-const WEATHER_API = `http://192.168.0.105:3005/weather`
+// not used anymore in 2022
+// const WEATHER_API = `http://192.168.0.105:3005/weather`
 
 class App {
   constructor() {
@@ -235,13 +236,15 @@ class App {
     return JSON.parse(user)
   }
 
+  // update 2022
   async fetchWeatherData() {
     let weather
     try {
-      weather = await axios.get(WEATHER_API)
-      console.log('weather: ', weather)
+      let res = await axios.get(SERVER_API + "/api/weather/latest");
+      weather = await res.data;
+      console.log('weather: ', res, weather)
     } catch (error) {
-      console.log("ERROR ------------ ", error)
+      console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())
     } finally {
       if (weather && weather.data) {
