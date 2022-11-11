@@ -7,7 +7,7 @@ import { sound } from '@pixi/sound';
 import { randomInRange } from "./utils";
 import { ALTTEXT_KO } from "../../altText-constants";
 
-const CULL_BOUNDS = 1100
+const CULL_BOUNDS = 1000
 
 export default class GardensLayer extends PIXI.Container {
   constructor(users, creatures, selfGarden) {
@@ -29,13 +29,15 @@ export default class GardensLayer extends PIXI.Container {
     Object.values(this.users).forEach(u => {
       if (!u.gardenSection) return
 
+      // for myGarden, check neighbor gardens and draw.
       if (!window.APP.getIsAdmin()) {
         let isWideScreen = (window.innerWidth > window.innerHeight)
         let dX = Math.abs(u.gardenSection.x * 1000 - currentUser.gardenSection.x * 1000)
         let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
-        let dZero = (isWideScreen) ? (dY) : (dX)          
-        if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
+        let dZero = (isWideScreen) ? (dY) : (dX) 
+        // update 2022: do not draw neighbor gardens         
+        if (dOne || dZero ) {
           return
         }
       }
@@ -93,6 +95,7 @@ export default class GardensLayer extends PIXI.Container {
     if (now - this.tapTimestamp > 5000) {
       let local = this.toLocal(e.data.global)
       window.APP.sendGardenTap(local)
+      console.log("onGardenTap local coords", local);
       this.tapTimestamp = now  
     }
   }
@@ -114,14 +117,15 @@ export default class GardensLayer extends PIXI.Container {
     // Second, add creatures that don't exist
     for (let k of Object.keys(onlineUsers)) {
       if (!existingUsers[k]) {
-        if (!window.APP.getIsAdmin()) {
+        if (!window.APP.getIsAdmin()) {       // for myGarden, check neighbor gardens and draw. 
           let u = onlineUsers[k]
           let isWideScreen = (window.innerWidth > window.innerHeight)
           let dX = Math.abs((u.gardenSection.x * 1000) - (currentUser.gardenSection.x * 1000))
           let dY = Math.abs((u.gardenSection.y * 1000) - (currentUser.gardenSection.y * 1000))
           let dOne = (isWideScreen) ? (dX) : (dY)
-          let dZero = (isWideScreen) ? (dY) : (dX)          
-          if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
+          let dZero = (isWideScreen) ? (dY) : (dX)  
+          // update 2022: do not draw neighbor gardens        
+          if (dOne || dZero) {
             continue
           }
         }  
