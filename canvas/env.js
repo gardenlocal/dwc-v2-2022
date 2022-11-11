@@ -1,6 +1,6 @@
 // window.GARDEN = 'moss'
-// window.GARDEN = 'lichen'
-window.GARDEN = 'mushroom'
+window.GARDEN = 'lichen'
+// window.GARDEN = 'mushroom'
 // window.GARDEN = 'all'
 
 // update 2022

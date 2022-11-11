@@ -135,7 +135,7 @@ class App {
   }
 
   sendGardenTap = (coords) => {
-    this.socket.emit('gardenTap', coords)
+    this.socket.emit('gardenTap', coords) // send local coords
 
     if(!window.IS_ADMIN){
       if(window.AUDIO) {
@@ -242,7 +242,7 @@ class App {
     try {
       let res = await axios.get(SERVER_API + "/api/weather/latest");
       weather = await res.data;
-      console.log('weather: ', res, weather)
+      // console.log('weather: ', res, weather)
     } catch (error) {
       console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())

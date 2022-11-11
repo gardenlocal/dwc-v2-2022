@@ -7,7 +7,7 @@ import { sound } from '@pixi/sound';
 import { randomInRange } from "./utils";
 import { ALTTEXT_KO } from "../../altText-constants";
 
-const CULL_BOUNDS = 1100
+const CULL_BOUNDS = 1000
 
 export default class GardensLayer extends PIXI.Container {
   constructor(users, creatures, selfGarden) {
@@ -26,6 +26,7 @@ export default class GardensLayer extends PIXI.Container {
       return u.uid == window.UID
     })[0]
 
+    console.log("currentUser", currentUser);
     Object.values(this.users).forEach(u => {
       if (!u.gardenSection) return
 
@@ -35,7 +36,7 @@ export default class GardensLayer extends PIXI.Container {
         let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
         let dZero = (isWideScreen) ? (dY) : (dX)          
-        if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
+        if (dOne || dZero ) {
           return
         }
       }
@@ -91,7 +92,9 @@ export default class GardensLayer extends PIXI.Container {
   onGardenTap = (e) => {
     const now = new Date().getTime()
     if (now - this.tapTimestamp > 5000) {
+      console.log("onGardenTAp global", e.data, e.data.global);
       let local = this.toLocal(e.data.global)
+      console.log("onGardenTap local coords", local);
       window.APP.sendGardenTap(local)
       this.tapTimestamp = now  
     }
@@ -114,6 +117,8 @@ export default class GardensLayer extends PIXI.Container {
     // Second, add creatures that don't exist
     for (let k of Object.keys(onlineUsers)) {
       if (!existingUsers[k]) {
+        // not all the gardens, just myGarden + neighbors garden.
+        // drops the farther gardens
         if (!window.APP.getIsAdmin()) {
           let u = onlineUsers[k]
           let isWideScreen = (window.innerWidth > window.innerHeight)
@@ -121,7 +126,7 @@ export default class GardensLayer extends PIXI.Container {
           let dY = Math.abs((u.gardenSection.y * 1000) - (currentUser.gardenSection.y * 1000))
           let dOne = (isWideScreen) ? (dX) : (dY)
           let dZero = (isWideScreen) ? (dY) : (dX)          
-          if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
+          if (dOne || dZero ) {
             continue
           }
         }  

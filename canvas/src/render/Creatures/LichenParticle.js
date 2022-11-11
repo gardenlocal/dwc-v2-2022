@@ -19,7 +19,7 @@ export default class LichenParticle extends PIXI.Container {
             // top level
             this.elementsIndex = (evolutionIndex % this.allChildren.length)
             this.elements = []
-
+            // elements
             for (let i = this.elementsIndex - this.visibleChildren; i < this.elementsIndex; i++) {
                 const index = (i + this.allChildren.length) % this.allChildren.length
                 this.elements.push(this.allChildren[index])
@@ -42,6 +42,7 @@ export default class LichenParticle extends PIXI.Container {
 
         this.onlyChildren = []
         for (let c of this.elements) {
+            console.log("LichenParticle-----", c);
             const ch = this.createChildFromConnector(c)
             this.addChild(ch)
             this.onlyChildren.push(ch)   
@@ -54,6 +55,7 @@ export default class LichenParticle extends PIXI.Container {
     createChildFromConnector(c) {
         const ch = new LichenParticle(this.creatureType, { ...c, evolutionIndex: -1 }, this.fillColor)
         const connector = ch.parentElement.getConnectorForType(c.type, c.parentConnector)
+        console.log("createChildFromConnector", connector);
 
         const bbox = ch.parentElement.getLocalBounds()
         const pX = bbox.width * connector.anchor.x

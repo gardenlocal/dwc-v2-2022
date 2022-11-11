@@ -254,7 +254,7 @@ const getMushroomChildren = (minChildren, maxChildren) => {
 
 exports.generateLichen = () => {
     const creatureType = "lichen"
-    const totalEvolutions = 10
+    const totalEvolutions = 1  // why need 10 evolutions before?
 
     let noChildren = randomIntInRange(1, 4)
     let parentType = randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType]))
@@ -265,8 +265,15 @@ exports.generateLichen = () => {
         visibleChildren: noChildren,        
     }
     
+    // ???
     let parentUsedConnectors = {}
-
+ 
+    console.log("parent child type? ", Object.keys(DWC_META.creaturesNew[creatureType]));
+    console.log("noChildren-------", noChildren); 
+    
+    // 10 evolutions.
+    // connector count: 4
+    // child used connector
     for (let i = 0; i < totalEvolutions; i++) {        
         let childType = randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType][parentType].connectors))
         let ch = {
@@ -275,23 +282,34 @@ exports.generateLichen = () => {
         }
 
         // Only keep track of the last "noChildren" used connectors
+        
+        // ???
         if (i >= noChildren) {
+            console.log(noChildren, element)
             let connIndex = element.children[i - noChildren].parentConnector
             delete parentUsedConnectors[connIndex]
         }
 
+        // total number of connector ids in svg
         const connectorCount = DWC_META.creaturesNew[creatureType][childType].connectors[childType]
+        // choose one of connector index
         ch.parentConnector = randomIntInRange(0, connectorCount)
+        console.log("evolutionIndex, connectorCount, ch----------", i, connectorCount, ch);
+        // find another parent index if it's taken
         while (parentUsedConnectors[ch.parentConnector]) {
             ch.parentConnector = randomIntInRange(0, connectorCount)
+            console.log("assign parent connector to a child------ ", ch, ch.parentConnector);
         }
+        // attach to selected parent index
         parentUsedConnectors[ch.parentConnector] = true
 
-
+        // check if enough ch1 exists, and maybe create more?
         let no2Children = randomIntInRange(0, 3)
         let childUsedConnectors = {}
-
-        for (let j = 0; j < no2Children; j++) {
+        console.log("no2Children--------------------------------", no2Children)
+        // console.log(DWC_META.creaturesNew[creatureType][childType]);
+        // console.log(Object.keys(DWC_META.creaturesNew[creatureType][childType].connectors));
+        for (let j = 0; j < no2Children; j++) {  
             const child2Type = randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType][childType].connectors))
             let c = {
                 type: child2Type,
@@ -306,16 +324,22 @@ exports.generateLichen = () => {
             }
             childUsedConnectors[c.parentConnector] = true
 
-            ch.children.push(c)            
+            ch.children.push(c)
+            console.log("no2Children loop------", ch, ch.children)
+
         }
 
         element.children.push(ch)
+        console.log("childUsedConnectors---------", childUsedConnectors);
+
     }
+    console.log("used parents -------/-----", parentUsedConnectors);
 
     const scale = randomInRange(1, 4)
     const rotation = randomInRange(-Math.PI / 2, Math.PI / 2)
     const fillColor = (Math.random() < 0.5) ? 0x0cef42 : 0xfd880b
     const evolutionIndex = noChildren
+    console.log("element------------", element);
 
     return {
         creatureType,

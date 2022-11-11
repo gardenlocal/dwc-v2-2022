@@ -10,6 +10,7 @@ export default class LichenCluster extends PIXI.Container {
         this.elementType = Object.values(DWC_META.creaturesNew[creatureType])[0].name
         this.evolutionIndex = evolutionIndex
 
+        console.log("LichenCluster----- ...element", {... element});
         this.creature = new LichenParticle(creatureType, { ...element, evolutionIndex }, fillColor)
         //this.drawParticle()
         this.addChild(this.creature)

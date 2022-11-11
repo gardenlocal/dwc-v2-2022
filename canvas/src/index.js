@@ -220,7 +220,8 @@ export default class PixiAppWrapper {
         this.gardenLayer.y = -window.APP.selfGarden.y * 1000
         this.pixiApp.stage.addChild(this.gardenLayer)
   
-        this.creaturesLayer = new CreaturesLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)      
+        this.creaturesLayer = new CreaturesLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)
+        console.log("app.js ---- new CreaturesLayer parameters----", window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden);
         this.creaturesLayer.x = -window.APP.selfGarden.x * 1000
         this.creaturesLayer.y = -window.APP.selfGarden.y * 1000
         this.pixiApp.stage.addChild(this.creaturesLayer)

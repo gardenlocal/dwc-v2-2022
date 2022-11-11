@@ -18,14 +18,15 @@ export default class CreaturesLayer extends PIXI.Container {
     this.drawCreatures()
   }
 
+  // only execute when create creature very first time
   drawCreatures() {
     for (const [key, value] of Object.entries(this.creatures)) {
       const c = new Creature(value)
       this.creatureObjects[key] = c
 
       // Only add highlight for one's own creature
-      if (value.owner.uid == window.APP.user.id) {
-        /*
+      console.log("drawCreatures-------", value.owner.uid, window.APP.user);
+      if (value.owner.uid == window.APP.user.uid) {
         let creatureSpriteContainer = new PIXI.Container()
         let creatureSprite = new PIXI.Sprite()        
         const whiteFilter = new PIXI.Filter(null, toWhite, {});
@@ -36,7 +37,6 @@ export default class CreaturesLayer extends PIXI.Container {
         this.highlightObjects[key] = {
           creatureSpriteContainer, creatureSprite
         }
-        */
       }
 
       this.addChild(c)
@@ -45,7 +45,7 @@ export default class CreaturesLayer extends PIXI.Container {
 
   updateOnlineCreatures(onlineCreatures) {
     this.creatures = onlineCreatures
-
+    console.log("updateOnlineCreatures---------", this.creatures);
     // First, remove creatures that aren't online anymore
     let creaturesToRemove = []
     let existingCreatures = {}
@@ -91,6 +91,7 @@ export default class CreaturesLayer extends PIXI.Container {
 
   updateCreatureData(creaturesToUpdate) {
     for (const [key, value] of Object.entries(this.creatures)) {
+      console.log("updateCreatureData------", creaturesToUpdate);
       if (creaturesToUpdate[key]) {
         const creature = this.children.find(ele => ele.name === key)
         const newState = creaturesToUpdate[key]
