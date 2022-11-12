@@ -16,6 +16,7 @@ export default class GardensLayer extends PIXI.Container {
     this.creatures = creatures
     this.userGarden = selfGarden
     this.tapTimestamp = 0
+    this.owner = null;
 
     this.drawBackgrounds()
   }
@@ -25,6 +26,7 @@ export default class GardensLayer extends PIXI.Container {
       console.log(u, window.UID);
       return u.uid == window.UID
     })[0]
+    this.owner = currentUser;
 
     Object.values(this.users).forEach(u => {
       if (!u.gardenSection) return
@@ -46,7 +48,7 @@ export default class GardensLayer extends PIXI.Container {
       garden.x = u.gardenSection.x * 1000
       garden.y = u.gardenSection.y * 1000
       console.log(`draw backgrounds ${garden.x}, ${garden.y}`);
-      console.log(this.users);
+      // console.log(this.users);
 
       this.addChild(garden)
 
@@ -63,6 +65,24 @@ export default class GardensLayer extends PIXI.Container {
         garden.on('touchstart', this.onGardenTap)
       }
     })
+
+    this.drawGardenName(currentUser);
+  }
+
+  drawGardenName(currentUser) {
+    const { creatureName, gardenSection } = currentUser;
+
+    const textStyle = new PIXI.TextStyle({
+      fontSize: 100,
+      fill: "green",
+      fontFamily: 'Dongle',
+      stroke: "orange",
+    })
+    const gardenName = new PIXI.Text(`Garden of ${creatureName}`, textStyle);
+    gardenName.scale.set(0.5);
+    gardenName.position.set(gardenSection.x*1000 + gardenName.getBounds().width/2, gardenSection.y*1000 + 1000 - gardenName.getBounds().height*2)        
+    this.addChild(gardenName)
+
   }
 
 // ACCESSIBILITY
