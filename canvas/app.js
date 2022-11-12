@@ -266,14 +266,14 @@ class App {
     try {
       let res = await axios.get(SERVER_API + "/api/weather/latest");
       weather = await res.data;
-      // console.log('weather: ', res, weather)
+      console.log('try ------ weather: ', res);
     } catch (error) {
       console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())
     } finally {
       if (weather && weather.data) {
         const weatherData = weather.data;
-    
+        console.log("finally-----", weather);
         window.TEMPERATURE = weatherData.temperature;
         window.HUMIDITY = weatherData.humidity;  
       }  
