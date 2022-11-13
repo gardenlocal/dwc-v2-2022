@@ -45,10 +45,34 @@ class App {
     await this.pixiApp.loadAssets()
     this.pixiApp.resizeAppToWindow()
 
+    // update 2022: send url query to match garden position
+    // console.log("window.location.href ", window.location.href);
+    let gardenSectionX = "";
+    let gardenSectionY = "";
+    const fullUrl = window.location.href;
+
+    // if url has query for garden location
+    if(fullUrl.includes("?")) {
+      const queries = fullUrl.split('?')[1].split("&");
+
+      for(const q of queries) {
+        // console.log(q);
+        let coordinateArr = q.split("=");
+        if(coordinateArr[0] === "x") {
+          gardenSectionX = coordinateArr[1];
+        } else if(coordinateArr[0] === "y") {
+          gardenSectionY = coordinateArr[1];
+        }
+      }
+      console.log(gardenSectionX, gardenSectionY)
+    }
+    
     this.socket = await io(`${this.serverUrl}:${this.serverPort}`, {
       query: {
         uid: this.user.uid,
-        creatureName: this.user.creatureName
+        creatureName: this.user.creatureName,
+        gardenSectionX,
+        gardenSectionY
       }
     })
 
@@ -242,14 +266,14 @@ class App {
     try {
       let res = await axios.get(SERVER_API + "/api/weather/latest");
       weather = await res.data;
-      // console.log('weather: ', res, weather)
+      console.log('try ------ weather: ', res);
     } catch (error) {
       console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())
     } finally {
       if (weather && weather.data) {
         const weatherData = weather.data;
-    
+        console.log("finally-----", weather);
         window.TEMPERATURE = weatherData.temperature;
         window.HUMIDITY = weatherData.humidity;  
       }  

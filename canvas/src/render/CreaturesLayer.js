@@ -15,6 +15,7 @@ export default class CreaturesLayer extends PIXI.Container {
     this.creatureObjects = {}
     this.highlightObjects = {}
 
+    // only execute when create creature very first time
     this.drawCreatures()
   }
 
@@ -26,6 +27,8 @@ export default class CreaturesLayer extends PIXI.Container {
 
       // Only add highlight for one's own creature
       console.log("drawCreatures-------", value.owner.uid, window.APP.user);
+      // 사용하게 되면, window.APP.user.uid 로 바꿔야 함.
+      /*
       if (value.owner.uid == window.APP.user.uid) {
         let creatureSpriteContainer = new PIXI.Container()
         let creatureSprite = new PIXI.Sprite()        
@@ -38,7 +41,8 @@ export default class CreaturesLayer extends PIXI.Container {
           creatureSpriteContainer, creatureSprite
         }
       }
-
+      */
+      
       this.addChild(c)
     }  
   }
