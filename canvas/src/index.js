@@ -214,6 +214,12 @@ export default class PixiAppWrapper {
   
         //this.pixiApp.stage.scale.set(window.innerWidth / bbox.width)
       } else {
+        this.bgContainer = new PIXI.Graphics()
+        this.bgContainer.beginFill(0x000000)
+        this.bgContainer.drawRect(0, 0, window.innerWidth, window.innerHeight);
+        this.pixiApp.stage.addChild(this.bgContainer);
+        console.log(this.bgContainer);
+
         //this.gardenLayer = new UserGarden(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden, window.APP.selfUid)
         this.gardenLayer = new GardensLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)
         this.gardenLayer.x = -window.APP.selfGarden.x * 1000

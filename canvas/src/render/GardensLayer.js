@@ -18,7 +18,16 @@ export default class GardensLayer extends PIXI.Container {
     this.tapTimestamp = 0
     this.owner = null;
 
-    this.drawBackgrounds()
+    this.drawBlackArea();
+    this.drawBackgrounds();
+  }
+
+  async drawBlackArea() {
+    this.bgContainer = new PIXI.Graphics()
+    this.bgContainer.beginFill(0x000000)
+    this.bgContainer.drawRect(0, 0, window.innerWidth, window.innerHeight);
+    this.addChild(this.bgContainer);
+    console.log(this.bgContainer);
   }
 
   drawBackgrounds() {
@@ -38,6 +47,7 @@ export default class GardensLayer extends PIXI.Container {
         let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
         let dZero = (isWideScreen) ? (dY) : (dX) 
+        // console.log(dX, dY, dOne, dZero);
         // update 2022: do not draw neighbor gardens         
         if (dOne || dZero ) {
           return
