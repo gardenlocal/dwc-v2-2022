@@ -22,6 +22,7 @@ export default class CreaturesLayer extends PIXI.Container {
   // only execute when create creature very first time
   drawCreatures() {
     for (const [key, value] of Object.entries(this.creatures)) {
+      console.log(value);
       const c = new Creature(value)
       this.creatureObjects[key] = c
 
@@ -69,6 +70,7 @@ export default class CreaturesLayer extends PIXI.Container {
     // Second, add creatures that don't exist
     for (let k of Object.keys(onlineCreatures)) {
       if (!existingCreatures[k]) {
+        console.log(onlineCreatures[k]);
         const c = new Creature(onlineCreatures[k])
         this.creatureObjects[c.name] = c
 

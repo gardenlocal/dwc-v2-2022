@@ -254,7 +254,7 @@ const getMushroomChildren = (minChildren, maxChildren) => {
 
 exports.generateLichen = () => {
     const creatureType = "lichen"
-    const totalEvolutions = 1  // why need 10 evolutions before?
+    const totalEvolutions = 10  // why need 10 evolutions before?
 
     let noChildren = randomIntInRange(1, 4)
     let parentType = randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType]))
@@ -275,7 +275,7 @@ exports.generateLichen = () => {
     // connector count: 4
     // child used connector
     for (let i = 0; i < totalEvolutions; i++) {        
-        let childType = randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType][parentType].connectors))
+        let childType = 'lichen-element-1' // randomElementFromArray(Object.keys(DWC_META.creaturesNew[creatureType][parentType].connectors))
         let ch = {
             type: childType,
             children: [],
@@ -283,14 +283,15 @@ exports.generateLichen = () => {
 
         // Only keep track of the last "noChildren" used connectors
         
-        // ???
+        // evolve creature when tapped => change the particle position to different spot.
+        /*
         if (i >= noChildren) {
             console.log(noChildren, element)
             let connIndex = element.children[i - noChildren].parentConnector
             delete parentUsedConnectors[connIndex]
         }
 
-        // total number of connector ids in svg
+        // total number of connector ids in svg: lichen has 4.
         const connectorCount = DWC_META.creaturesNew[creatureType][childType].connectors[childType]
         // choose one of connector index
         ch.parentConnector = randomIntInRange(0, connectorCount)
@@ -328,18 +329,22 @@ exports.generateLichen = () => {
             console.log("no2Children loop------", ch, ch.children)
 
         }
-
-        element.children.push(ch)
-        console.log("childUsedConnectors---------", childUsedConnectors);
-
+        */
+        let recursiveChild = {
+            type: "lichen-element-1",
+            children: [],
+            parentConnector: 3
+          }
+        element.children.push(harcodeLichenJSON)
+        // console.log("childUsedConnectors---------", childUsedConnectors);
     }
-    console.log("used parents -------/-----", parentUsedConnectors);
+    // console.log("used parents -------/-----", parentUsedConnectors);
 
     const scale = randomInRange(1, 4)
     const rotation = randomInRange(-Math.PI / 2, Math.PI / 2)
     const fillColor = (Math.random() < 0.5) ? 0x0cef42 : 0xfd880b
     const evolutionIndex = noChildren
-    console.log("element------------", element);
+    console.log("shared-constants ---- element------------", element);
 
     return {
         creatureType,
@@ -349,7 +354,7 @@ exports.generateLichen = () => {
         evolutionIndex,
         visibleChildren: noChildren,
         element
-    }
+    };
 }
 
 function randomInRange(a, b) {
@@ -362,4 +367,81 @@ function randomIntInRange(a, b) {
 
 function randomElementFromArray(arr) {
     return arr[randomIntInRange(0, arr.length)]
+}
+
+let harcodeLichenJSON = {
+    creatureType: "lichen",
+    children: [
+      {
+        type: "lichen-element-1",
+        children: [
+          {
+            type: "lichen-element-1",
+            children: [
+              {
+                type: "lichen-element-1",
+                children: [
+                  {
+                    type: "lichen-element-1",
+                    children: [
+                      {
+                        type: "lichen-element-1",
+                        children: [
+                          {
+                            type: "lichen-element-1",
+                            children: [
+                              {
+                                type: "lichen-element-1",
+                                children: [
+                                  {
+                                    type: "lichen-element-1",
+                                    children: [
+                                      {
+                                        type: "lichen-element-1",
+                                        children: [
+                                          {
+                                            type: "lichen-element-1",
+                                            children: [
+                                              {
+                                                type: "lichen-element-1",
+                                                children: [
+                                                  {
+                                                    type: "lichen-element-1",
+                                                    children: [],
+                                                    parentConnector: 3
+                                                  }
+                                                ],
+                                                parentConnector: 3
+                                              }
+                                            ],
+                                            parentConnector: 3
+                                          }
+                                        ],
+                                        parentConnector: 3
+                                      }
+                                    ],
+                                    parentConnector: 3
+                                  }
+                                ],
+                                parentConnector: 3
+                              }
+                            ],
+                            parentConnector: 3
+                          }
+                        ],
+                        parentConnector: 3
+                      }
+                    ],
+                    parentConnector: 3
+                  }
+                ],
+                parentConnector: 3
+              }
+            ],
+            parentConnector: 3
+          }
+        ],
+        parentConnector: 3
+      }
+    ]
 }

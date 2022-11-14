@@ -8,6 +8,8 @@ export default class LichenParticle extends PIXI.Container {
     constructor(creatureType, { type, children, visibleChildren, parentConnector, evolutionIndex }, fillColor) {
         super()
 
+        console.log(type, children, visibleChildren, parentConnector);
+
         this.creatureType = creatureType
         this.type = type
         this.allChildren = children
@@ -30,8 +32,10 @@ export default class LichenParticle extends PIXI.Container {
         }        
 
         this.frame = 0
-
+        console.log(PIXI.Loader.shared.resources[this.type]);
         const svgParentData = PIXI.Loader.shared.resources[this.type].data
+        console.log("svgParentData >>>>> ", svgParentData);
+
         this.parentElement = new SVGCreatureShape(svgParentData, this.type, Object.keys(DWC_META.creaturesNew[this.creatureType][this.type].connectors), this.fillColor)
         // this.parentElement.alpha = 0.0001
         if (parentConnector == null) {
@@ -53,6 +57,7 @@ export default class LichenParticle extends PIXI.Container {
         this.targetScale = { x: 1, y: 1 }
     }
     createChildFromConnector(c) {
+        console.log("createChildFromConnector >>>>> ", c);
         const ch = new LichenParticle(this.creatureType, { ...c, evolutionIndex: -1 }, this.fillColor)
         const connector = ch.parentElement.getConnectorForType(c.type, c.parentConnector)
         console.log("createChildFromConnector", connector);

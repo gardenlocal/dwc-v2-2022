@@ -74,8 +74,8 @@ children: Array(10)
                 children: []
                 parentConnector: 2
                 type: "lichen-element-1"
-                parentConnector: 0
-                type: "lichen-element-1"
+        parentConnector: 0
+        type: "lichen-element-1"
     9: 
         children: (2) [{…}, {…}]
         parentConnector: 3
