@@ -16,6 +16,7 @@ export default class GardensLayer extends PIXI.Container {
     this.creatures = creatures
     this.userGarden = selfGarden
     this.tapTimestamp = 0
+    this.owner = null;
 
     this.drawBackgrounds()
   }
@@ -25,17 +26,21 @@ export default class GardensLayer extends PIXI.Container {
       console.log(u, window.UID);
       return u.uid == window.UID
     })[0]
+    this.owner = currentUser;
 
     console.log("currentUser", currentUser);
     Object.values(this.users).forEach(u => {
       if (!u.gardenSection) return
 
+      // for myGarden, check neighbor gardens and draw.
       if (!window.APP.getIsAdmin()) {
         let isWideScreen = (window.innerWidth > window.innerHeight)
         let dX = Math.abs(u.gardenSection.x * 1000 - currentUser.gardenSection.x * 1000)
         let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
         let dZero = (isWideScreen) ? (dY) : (dX)          
+        // update 2022: do not draw neighbor gardens         
+        // if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
         if (dOne || dZero ) {
           return
         }
@@ -45,7 +50,7 @@ export default class GardensLayer extends PIXI.Container {
       garden.x = u.gardenSection.x * 1000
       garden.y = u.gardenSection.y * 1000
       console.log(`draw backgrounds ${garden.x}, ${garden.y}`);
-      console.log(this.users);
+      // console.log(this.users);
 
       this.addChild(garden)
 
@@ -62,6 +67,24 @@ export default class GardensLayer extends PIXI.Container {
         garden.on('touchstart', this.onGardenTap)
       }
     })
+
+    this.drawGardenName(currentUser);
+  }
+
+  drawGardenName(currentUser) {
+    const { creatureName, gardenSection } = currentUser;
+
+    const textStyle = new PIXI.TextStyle({
+      fontSize: 100,
+      fill: "green",
+      fontFamily: 'Dongle',
+      stroke: "orange",
+    })
+    const gardenName = new PIXI.Text(`Garden of ${creatureName}`, textStyle);
+    gardenName.scale.set(0.5);
+    gardenName.position.set(gardenSection.x*1000 + gardenName.getBounds().width/2, gardenSection.y*1000 + 1000 - gardenName.getBounds().height*2)        
+    this.addChild(gardenName)
+
   }
 
 // ACCESSIBILITY
@@ -96,6 +119,7 @@ export default class GardensLayer extends PIXI.Container {
       let local = this.toLocal(e.data.global)
       console.log("onGardenTap local coords", local);
       window.APP.sendGardenTap(local)
+      console.log("onGardenTap local coords", local);
       this.tapTimestamp = now  
     }
   }
@@ -126,7 +150,9 @@ export default class GardensLayer extends PIXI.Container {
           let dY = Math.abs((u.gardenSection.y * 1000) - (currentUser.gardenSection.y * 1000))
           let dOne = (isWideScreen) ? (dX) : (dY)
           let dZero = (isWideScreen) ? (dY) : (dX)          
-          if (dOne || dZero ) {
+          // if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
+          // update 2022: do not draw neighbor gardens        
+          if (dOne || dZero) {
             continue
           }
         }  
