@@ -46,6 +46,7 @@ export default class Creature extends PIXI.Container {
         this.interactive = (state.owner.uid == window.APP.user.id) || (window.APP.getIsAdmin())
         this.on('mousedown', this.onMouseDown)
         this.on('touchstart', this.onMouseDown)
+        console.log("creature js appearance >>>>>", appearance);
 
         switch (appearance.creatureType) {
             case 'moss':
@@ -58,6 +59,7 @@ export default class Creature extends PIXI.Container {
                 this.creature = new MushroomCluster(appearance, this.displayText)
                 break
         }
+        console.log("creature js >>>>>", this.creature)
 
         this.addChild(this.creature)
         this.creature.scale.set(appearance.scale * 2)

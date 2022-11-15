@@ -22,12 +22,13 @@ export default class CreaturesLayer extends PIXI.Container {
   // only execute when create creature very first time
   drawCreatures() {
     for (const [key, value] of Object.entries(this.creatures)) {
-      const c = new Creature(value);
-      this.creatureObjects[key] = c;
+      const c = new Creature(value)
+      this.creatureObjects[key] = c
 
       // Only add highlight for one's own creature
-      // 사용하게 되면, window.APP.user.uid 로 바꿔야 함.
       console.log("drawCreatures-------", value.owner.uid, window.APP.user);
+      // if (value.owner.uid == window.APP.user.uid) {
+      // 사용하게 되면, window.APP.user.uid 로 바꿔야 함.
       if (value.owner.uid == window.APP.user.id) {
         /*
         let creatureSpriteContainer = new PIXI.Container()
@@ -40,10 +41,10 @@ export default class CreaturesLayer extends PIXI.Container {
         this.highlightObjects[key] = {
           creatureSpriteContainer, creatureSprite
         }
+        */
       }
-
-      this.addChild(c);
-    }
+      this.addChild(c)
+    }  
   }
 
   updateOnlineCreatures(onlineCreatures) {
@@ -68,8 +69,8 @@ export default class CreaturesLayer extends PIXI.Container {
     // Second, add creatures that don't exist
     for (let k of Object.keys(onlineCreatures)) {
       if (!existingCreatures[k]) {
-        const c = new Creature(onlineCreatures[k]);
-        this.creatureObjects[c.name] = c;
+        const c = new Creature(onlineCreatures[k])
+        this.creatureObjects[c.name] = c
 
         if (onlineCreatures[k].owner.uid == window.APP.user.id) {
           /*

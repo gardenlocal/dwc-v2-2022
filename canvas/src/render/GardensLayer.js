@@ -38,7 +38,7 @@ export default class GardensLayer extends PIXI.Container {
         let dX = Math.abs(u.gardenSection.x * 1000 - currentUser.gardenSection.x * 1000)
         let dY = Math.abs(u.gardenSection.y * 1000 - currentUser.gardenSection.y * 1000)
         let dOne = (isWideScreen) ? (dX) : (dY)
-        let dZero = (isWideScreen) ? (dY) : (dX)          
+        let dZero = (isWideScreen) ? (dY) : (dX) 
         // update 2022: do not draw neighbor gardens         
         // if (dOne > CULL_BOUNDS || dZero > (CULL_BOUNDS - 1000)) {
         if (dOne || dZero ) {

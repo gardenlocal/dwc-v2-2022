@@ -266,7 +266,7 @@ class App {
     try {
       let res = await axios.get(SERVER_API + "/api/weather/latest");
       weather = await res.data;
-      console.log('weather: ', res, weather)
+      console.log('try ------ weather: ', res, weather);
     } catch (error) {
       console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())
