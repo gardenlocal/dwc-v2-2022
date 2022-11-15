@@ -29,6 +29,19 @@
       </div>
       <form onsubmit="submitLogin(event)" class="innerContainer">
         <input type="text" placeholder="이름을 입력하세요" aria-label="이름을 입력하세요" id="creatureName" name="creatureName" required />
+        <div id="creatureOptionsWrapper">  
+          <input type="radio" id="moss"
+            name="creatureOptions" value="moss"/>
+            <label for="moss">moss</label>
+        
+            <input type="radio" id="mushroom"
+            name="creatureOptions" value="mushroom"/>
+            <label for="mushroom">mushroom</label>
+        
+            <input type="radio" id="lichen"
+            name="creatureOptions" value="lichen"/>
+            <label for="lichen">lichen</label>
+          </div>
         <button type="submit" id="submit" value="입장하기" aria-label="입장하기.">입장하기</button>
       </form>
     </div>

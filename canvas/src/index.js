@@ -214,6 +214,7 @@ export default class PixiAppWrapper {
   
         //this.pixiApp.stage.scale.set(window.innerWidth / bbox.width)
       } else {
+        console.log("make gardenlayer ======== ", window.APP.onlineCreatures, window.APP.onlineUsers, window.APP.selfGarden);
         //this.gardenLayer = new UserGarden(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden, window.APP.selfUid)
         this.gardenLayer = new GardensLayer(window.APP.onlineUsers, window.APP.onlineCreatures, window.APP.selfGarden)
         this.gardenLayer.x = -window.APP.selfGarden.x * 1000
@@ -228,6 +229,7 @@ export default class PixiAppWrapper {
       }  
     }
 
+    console.log("index.js ====== end of render")
     this.pixiApp.resize()
 
     this.isLoading = false

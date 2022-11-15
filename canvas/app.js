@@ -32,6 +32,7 @@ class App {
     window.HUMIDITY = 55
 
     this.user = this.createOrFetchUser()
+    console.log("this.user ----------- ", this.user);
     getAssistMode()
 
     this.serverPort = window.location.hostname.includes('iptime') ? '1012' : '3000'
@@ -44,7 +45,7 @@ class App {
     
     await this.pixiApp.loadAssets()
     this.pixiApp.resizeAppToWindow()
-
+    console.log("this.pixiApp.loadAssets() ============= ", this.pixiApp.loadAssets);
     // update 2022: send url query to match garden position
     // console.log("window.location.href ", window.location.href);
     let gardenSectionX = "";
@@ -64,18 +65,22 @@ class App {
           gardenSectionY = coordinateArr[1];
         }
       }
-      console.log(gardenSectionX, gardenSectionY)
+      console.log(gardenSectionX, gardenSectionY, window.GARDEN)
     }
     
+    console.log("before send socket, ", this.user, window.MYCREATURETYPE);
+
     this.socket = await io(`${this.serverUrl}:${this.serverPort}`, {
       query: {
         uid: this.user.uid,
         creatureName: this.user.creatureName,
+        creatureType: window.MYCREATURETYPE,
         gardenSectionX,
         gardenSectionY
       }
     })
 
+    console.log("after connect socket ========= ", this.user.uid)
     // client's UID
     window.UID = this.user.uid
 
@@ -108,10 +113,15 @@ class App {
       this.pixiApp.stop()
       this.onlineCreatures = {}
       this.onlineUsers = {}
+      console.log("visibility check ======== not active")
     } else {
       this.socket.connect()      
       // this.pixiApp.reset()
+      console.log("visibility check ======== active, connect socket");
     }
+
+    console.log("windown visibility change function ======", this.onVisibilityChange);
+
   }
 
   hasAdminSequence() {
@@ -124,6 +134,7 @@ class App {
   }
 
   renderAppIfReady() {
+    console.log("renderAppIfready ========= ")
     if (this.initData.creatures && this.initData.users && !this.initData.firstRender) {
       this.pixiApp.render()
       this.initData.firstRender = true
@@ -180,7 +191,8 @@ class App {
     // get single user's garden data
 
     const currUser = users.find((u => (u.uid == this.user.uid)))
-    
+    console.log(users, this.user.uid, currUser); // error when first enter: [] 'uid exists', undefined
+
     if(!currUser) {
       return;
     }
@@ -266,14 +278,14 @@ class App {
     try {
       let res = await axios.get(SERVER_API + "/api/weather/latest");
       weather = await res.data;
-      console.log('try ------ weather: ', res);
+
     } catch (error) {
       console.log("client WEATHER API ERROR ------------ ", error)
       return new Promise((res, rej) => res())
     } finally {
       if (weather && weather.data) {
         const weatherData = weather.data;
-        console.log("finally-----", weather);
+
         window.TEMPERATURE = weatherData.temperature;
         window.HUMIDITY = weatherData.humidity;  
       }  
@@ -288,6 +300,15 @@ window.startApp = () => {
 
 window.submitLogin = (event) => {
   event.preventDefault();
+  // const creatureOptions = await document.getElementById("creatureOptions");
+  // console.log(creatureOptions);
+  const selectedCreature = document.querySelector('input[name="creatureOptions"]:checked').value;
+  if(selectedCreature) {
+    window.MYCREATURETYPE = selectedCreature;
+  }
+  // event.srcElement
+  console.log("submitlogin ---- selected creature ", selectedCreature);
+  console.log("window.MYCREATURETYPE assigned? ", window.MYCREATURETYPE);
 
   window.CREATURE_NAME = event.target[0].value;
   
@@ -347,6 +368,7 @@ window.addEventListener('offline', () => window.location.reload());
 window.addEventListener('DOMContentLoaded', () => {
   let userStr = localStorage.getItem("user")
   let user = (userStr) ? JSON.parse(userStr) : ""
+  console.log("DOMContentLoaded====================== user?", user);
 
   if (window.location.pathname == '/test' || window.location.pathname == '/admin' || (user.creatureName && user.creatureName != "")) {
     window.CREATURE_NAME = user.creatureName
@@ -361,9 +383,10 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector(".topWrap").style.opacity = 1;
     document.querySelector(".bottomWrap").style.opacity = 1;
   }
+  console.log("dome content loaded ========= ");
+  console.log('window garden: ', window.GARDEN)
+  console.log('window mycreaturetype: ', window.MYCREATURETYPE);
 
   window.SCREENREADER = document.getElementById('description')
   window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].intro;
-
-  console.log('window garden: ', window.GARDEN)
 })
