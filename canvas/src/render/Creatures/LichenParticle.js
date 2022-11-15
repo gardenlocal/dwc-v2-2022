@@ -62,7 +62,7 @@ export default class LichenParticle extends PIXI.Container {
         ch.position.set(connector.x, connector.y)                        
         ch.parentElement.position.set(0, 0)
         ch.pivot.set(pX, pY)                            
-        ch.targetScale = { x: 0.5, y: 0.5 }
+        ch.targetScale = { x: 0.75, y: 0.75 }
         // ch.scale.set(0.0, 0.0)
         ch.alpha = 0.0001
 
@@ -77,7 +77,7 @@ export default class LichenParticle extends PIXI.Container {
             this.children[i].hideAll()
         }
     }
-    async startAnimatingGrowth(durationPerElement, delayPerElement = 350) {
+    async startAnimatingGrowth(durationPerElement, delayPerElement = 550) {
         if (this.parentConnector == null) this.hideAll()
         const el = this
         el.scale.set(0.0)
