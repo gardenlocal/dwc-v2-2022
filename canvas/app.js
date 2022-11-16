@@ -65,7 +65,7 @@ class App {
           gardenSectionY = coordinateArr[1];
         }
       }
-      console.log(gardenSectionX, gardenSectionY, window.GARDEN)
+      console.log('send garden coord: ', gardenSectionX, gardenSectionY, window.GARDEN)
     }
     
     console.log("before send socket, ", this.user, window.MYCREATURETYPE);
