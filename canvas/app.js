@@ -134,7 +134,7 @@ class App {
   }
 
   renderAppIfReady() {
-    console.log("renderAppIfready ========= ")
+    // console.log("renderAppIfready ========= ")
     if (this.initData.creatures && this.initData.users && !this.initData.firstRender) {
       this.pixiApp.render()
       this.initData.firstRender = true
