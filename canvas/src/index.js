@@ -56,6 +56,8 @@ export default class PixiAppWrapper {
 
     this.pixiApp.renderer.backgroundColor = 0xf9f9f9;
 
+		console.log(this.pixiApp.renderer.context);
+
     this.ticker = PIXI.Ticker.shared
 
     this.appContainer = new PIXI.Container()

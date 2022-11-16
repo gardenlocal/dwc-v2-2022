@@ -148,6 +148,7 @@ class App {
   }
 
   onSocketConnectError = (error) => {
+		console.log("onSocketConnectError /////////// ", error);
   }
 
   onAdminConnect = () => {
