@@ -190,7 +190,7 @@ export default class Creature extends PIXI.Container {
         
         this.creature.rotation = 0
 
-        this.creature.startAnimatingGrowth(1500)
+        this.creature.startAnimatingGrowth(window.GROW_ELEMENT_DURATION)
         // this.x = prop.teleport.x
         // this.y = prop.teleport.y
 
@@ -201,7 +201,7 @@ export default class Creature extends PIXI.Container {
         await sleep(500)
 
         this.motionTween = new TWEEN.Tween(this)
-        .to({ x: this.target.x, y: this.target.y }, (this.movementDuration - durationOffset) * 1000)
+        .to({ x: this.target.x, y: this.target.y }, (this.movementDuration - durationOffset) * window.MOVE_DURATION)
         .easing(TWEEN.Easing.Linear.None)
         .start()
 

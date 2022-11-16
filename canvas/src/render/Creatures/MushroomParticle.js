@@ -68,7 +68,7 @@ export default class MushroomParticle extends PIXI.Container {
         }
         if (this.growthTween) TWEEN.remove(this.growthTween)
     }
-    async startAnimatingGrowth(durationPerElement, delayPerElement = 250) {
+    async startAnimatingGrowth(durationPerElement, delayPerElement = window.GROW_ELEMENT_DURATION || 1000) {
         this.hideAll()
 
         if (this.growthTween) {

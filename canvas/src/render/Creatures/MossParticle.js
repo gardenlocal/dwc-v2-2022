@@ -80,7 +80,7 @@ export default class Particle extends PIXI.Container {
     getNumberOfElements() {
         return this.elements.length
     }
-    async startAnimatingGrowth(durationPerElement, delayPerElement = 500) {
+    async startAnimatingGrowth(durationPerElement, delayPerElement = window.GROW_ELEMENT_DURATION || 1000) {
         for (let i = 0; i < this.elements.length; i++) {
             this.elements[i].children[0].alpha = 0
         }

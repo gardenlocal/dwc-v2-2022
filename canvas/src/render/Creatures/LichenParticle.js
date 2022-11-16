@@ -77,7 +77,7 @@ export default class LichenParticle extends PIXI.Container {
             this.children[i].hideAll()
         }
     }
-    async startAnimatingGrowth(durationPerElement, delayPerElement = 550) {
+    async startAnimatingGrowth(durationPerElement, delayPerElement = window.GROW_ELEMENT_DURATION || 1000) {
         if (this.parentConnector == null) this.hideAll()
         const el = this
         el.scale.set(0.0)
