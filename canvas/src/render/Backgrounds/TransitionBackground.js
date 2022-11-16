@@ -203,7 +203,7 @@ export default class TransitionBackground extends PIXI.Graphics {
 
       this.transitionType = "TO_EMPTY"; // going to empty 
       this.radius = 0;
-      console.log("FULL TO EMPTY")
+      // console.log("FULL TO EMPTY")
 
       // to empty: center starts from the anchor
       const randomIndex = Math.floor(Math.random() * this.anchorArr.length);
@@ -216,7 +216,7 @@ export default class TransitionBackground extends PIXI.Graphics {
     } else if (currState === "EMPTY") {   // currently tile is empty (white)
 
       // BUG: this gets executed when it shouldn't
-      console.log("EMPTY TO FULL")
+      // console.log("EMPTY TO FULL")
       this.transitionType = "TO_FULL"; // going to full
       const randomIndex = Math.floor(Math.random() * this.anchorArr.length);
       this.anchorIndex = randomIndex;
@@ -275,9 +275,9 @@ export default class TransitionBackground extends PIXI.Graphics {
         this.currentState = "EMPTY"
 
       }  else if (!!this.anchorAcrossIndex && dist < 1) { // check if anchor and center are getting closer
-        console.log(this.anchorAcrossIndex)
-        console.log(this.anchorIndex)
-        console.log(dist)
+        // console.log(this.anchorAcrossIndex)
+        // console.log(this.anchorIndex)
+        // console.log(dist)
         this.currentState = "FULL"
 
       } else {

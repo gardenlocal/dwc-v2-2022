@@ -159,10 +159,10 @@ class App {
   sendEvolveCreature = (id) => {
     this.socket.emit('creatureEvolve', { id })
 
-    console.log("sendEvolveCreature-------------", id)
+    // console.log("sendEvolveCreature-------------", id)
     if(!window.IS_ADMIN){
       if(window.AUDIO) {
-        console.log("CREATURE EVOLVE SOUND:", window.AUDIO._sounds)
+        //console.log("CREATURE EVOLVE SOUND:", window.AUDIO._sounds)
         if(!window.AUDIO._sounds?.creatureTapSound?.isPlaying){ // if not playing
             window.AUDIO.play('creatureTapSound')
         }
@@ -175,7 +175,7 @@ class App {
 
     if(!window.IS_ADMIN){
       if(window.AUDIO) {
-        console.log("GARDE TAP SOUND:", window.AUDIO._sounds)
+        //console.log("GARDE TAP SOUND:", window.AUDIO._sounds)
         if(!window.AUDIO._sounds?.gardenTapSound?.isPlaying){ // if not playing
           window.AUDIO.play('gardenTapSound')
         }  
@@ -192,7 +192,7 @@ class App {
     // get single user's garden data
 
     const currUser = users.find((u => (u.uid == this.user.uid)))
-    console.log(users, this.user.uid, currUser); // error when first enter: [] 'uid exists', undefined
+    //console.log(users, this.user.uid, currUser); // error when first enter: [] 'uid exists', undefined
 
     if(!currUser) {
       return;
@@ -369,7 +369,7 @@ window.addEventListener('offline', () => window.location.reload());
 window.addEventListener('DOMContentLoaded', () => {
   let userStr = localStorage.getItem("user")
   let user = (userStr) ? JSON.parse(userStr) : ""
-  console.log("DOMContentLoaded====================== user?", user);
+  //console.log("DOMContentLoaded====================== user?", user);
 
   if (window.location.pathname == '/test' || window.location.pathname == '/admin' || (user.creatureName && user.creatureName != "")) {
     window.CREATURE_NAME = user.creatureName
@@ -384,9 +384,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector(".topWrap").style.opacity = 1;
     document.querySelector(".bottomWrap").style.opacity = 1;
   }
-  console.log("dome content loaded ========= ");
-  console.log('window garden: ', window.GARDEN)
-  console.log('window mycreaturetype: ', window.MYCREATURETYPE);
+  // console.log("dome content loaded ========= ");
+  // console.log('window garden: ', window.GARDEN)
+  // console.log('window mycreaturetype: ', window.MYCREATURETYPE);
 
   window.SCREENREADER = document.getElementById('description')
   window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].intro;

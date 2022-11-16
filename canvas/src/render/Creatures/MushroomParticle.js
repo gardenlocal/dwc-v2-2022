@@ -113,7 +113,7 @@ export default class MushroomParticle extends PIXI.Container {
         }
 
         const el = this.elements[0]
-        console.log('tween is: ', TWEEN)
+        // console.log('tween is: ', TWEEN)
         this.deathTween = new TWEEN.Tween(this.elements[0].scale)
             .to({x: 0, y: 0 }, durationPerElement)
             .easing(TWEEN.Easing.Quartic.InOut)

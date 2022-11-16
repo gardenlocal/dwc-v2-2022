@@ -71,7 +71,6 @@ export default class Creature extends PIXI.Container {
 
         // Add evolve button for my creature only
         if(state.owner.uid == window.APP.user.id) {
-            console.log("evolve button for user: ", state.owner.uid, window.APP.user.id)
             if(window.ASSIST_MODE && !window.IS_ADMIN){
                 this.createEvolveButton()
             }

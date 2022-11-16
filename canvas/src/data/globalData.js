@@ -10,7 +10,7 @@ export let globalCreatures = {}
 
 export const updateGlobalData = (data) => {
   
-  console.log('update Global data is: ', globalData)
+  // console.log('update Global data is: ', globalData)
 }
 
 export function updateUsers (users) {

@@ -23,7 +23,6 @@ export default class GardensLayer extends PIXI.Container {
 
   drawBackgrounds() {
     let currentUser = Object.values(this.users).filter(u => {
-      console.log(u, window.UID);
       return u.uid == window.UID
     })[0]
     this.owner = currentUser;
@@ -47,7 +46,6 @@ export default class GardensLayer extends PIXI.Container {
       const garden = new UserGarden(this.users, this.creatures, u.gardenSection, u.uid)
       garden.x = u.gardenSection.x * 1000
       garden.y = u.gardenSection.y * 1000
-      console.log(`draw backgrounds ${garden.x}, ${garden.y}`);
       // console.log(this.users);
 
       this.addChild(garden)
@@ -56,7 +54,6 @@ export default class GardensLayer extends PIXI.Container {
         
         // Add Move button for my garden only     
         if(window.ASSIST_MODE && !window.IS_ADMIN){
-          console.log("garden move button for user ", u.uid, currentUser.uid)
           this.createMoveButton()
         }
         // This is the current user, we need to add an event listener for click
@@ -115,7 +112,6 @@ export default class GardensLayer extends PIXI.Container {
     if (now - this.tapTimestamp > 5000) {
       let local = this.toLocal(e.data.global)
       window.APP.sendGardenTap(local)
-      console.log("onGardenTap local coords", local);
       this.tapTimestamp = now  
     }
   }
