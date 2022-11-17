@@ -38,7 +38,24 @@ button {
   display: flex;
   justify-content: space-around;
   margin-bottom: 1.8rem;
+	font-size: 2.0rem;
 }
+input[type="radio"] {
+	height: 1.2rem;
+	width: 1.2rem;
+}
+
+.radioOptions{
+	display: inline-block;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.creatureTypes {
+	accent-color: #fd880b;
+
+}
+
 #submit {
   width: 100%;
   font-size: 1.8rem;
@@ -178,10 +195,10 @@ input#creatureName {
 }
 button#submit {
   font-family: 'Dongle';
-  height: 50px;
+  height: 4.0rem;
   width: 100%;
   border-radius: 30px;
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   border: 2px solid #000000;
   background-color: #ffffff;
   opacity: 0.85;
