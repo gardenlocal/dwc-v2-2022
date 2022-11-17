@@ -83,8 +83,10 @@ export default class MushroomCluster extends PIXI.Container {
 					const mushroomData = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: index};
 					let child = null;
 					if(parentCreature) {
+						console.log("single", parentCreature);
 						child = this.generateChildFromParameters(parentCreature, mushroomData);
 					} else if(parentCreatureArr.length > 0) {
+						console.log("array", parentCreatureArr.length, parentCreatureArr[index])
 						child = this.generateChildFromParameters(parentCreatureArr[index], mushroomData);
 					}
 					// save children-mushroom data to this.
