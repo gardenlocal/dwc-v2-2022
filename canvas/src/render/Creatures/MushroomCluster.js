@@ -29,10 +29,21 @@ export default class MushroomCluster extends PIXI.Container {
 				this.creatureSecondChildren = [];
 
 				// create several first-child 
-				this.generateRandomChildren(this.firstChildrenNum, 'CHILD1', this.creatureTop);
+				this.generateRandomFirstChildren(this.firstChildrenNum, 'CHILD1', this.creatureTop);
 
 				// create several second-child
-				this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
+
+				// this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
+				const child1_mirrorParticles = this.creatureFirstChildren[0].childrenDimensions.length;
+				const parentIndicesForSecondChildren = this.getUniqueRandomIndices(this.creatureFirstChildren.length);
+			  console.log(parentIndicesForSecondChildren, this.creatureFirstChildren.length);
+
+				parentIndicesForSecondChildren.map(parentIndex => {
+					const child2_data = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: randomIntInRange(0, child1_mirrorParticles)};
+					const child2 = this.generateChildFromParameters(this.creatureFirstChildren[parentIndex], child2_data)	
+					this.creatureSecondChildren.push(child2);
+					this.creature.addChild(child2);
+				})
 
         const bbox = this.creatureTop.getLocalBounds()
         this.addChild(this.creature)
@@ -60,15 +71,20 @@ export default class MushroomCluster extends PIXI.Container {
         this.isAnimatingGrowth = false
     }
 
-		generateRandomChildren(currChildrenNum, childLevel, parentCreature, parentCreatureArr) {
+		getUniqueRandomIndices(maxNum){
+			let randomIndices = [];
+			for(let i = 0; i < maxNum; i++){
+				let n = randomIntInRange(0, maxNum);
+				randomIndices.push(n);
+			}
+			// choose which parentIndices these children will attach to
+			const uniqueIndices = [...new Set(randomIndices)]; // make array with unique random nums
+			return uniqueIndices
+		}
+
+		generateRandomFirstChildren(currChildrenNum, childLevel, parentCreature, parentCreatureArr) {
 				// decide number of children to make
-				let randomIndices = [];
-				for(let i = 0; i < currChildrenNum; i++){
-					let parentIndex = randomIntInRange(0, currChildrenNum);
-					randomIndices.push(parentIndex);
-				}
-				// choose which parentIndices these children will attach to
-				const chosenIndices = [...new Set(randomIndices)]; // make array with unique random nums
+				const chosenIndices = this.getUniqueRandomIndices(currChildrenNum);
 				switch(childLevel){
 					case 'CHILD1':
 						this.chosenParentIndices1 = chosenIndices;
@@ -79,18 +95,10 @@ export default class MushroomCluster extends PIXI.Container {
 				} 
 				
 				// for each parentParticle, make child-mushroom
-				let parentArrayIndex = 0;
 				chosenIndices.map(index => {
 					const mushroomData = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: index};
 					let child = null;
-					if(parentCreature) {
-						console.log("single", parentCreature);
-						child = this.generateChildFromParameters(parentCreature, mushroomData);
-					} else if(parentCreatureArr.length > 0) {
-						console.log("array, chosenindex", parentCreatureArr.length, index, parentCreatureArr[parentArrayIndex])
-						child = this.generateChildFromParameters(parentCreatureArr[index], mushroomData);
-						parentArrayIndex++;
-					}
+					child = this.generateChildFromParameters(parentCreature, mushroomData);
 					// save children-mushroom data to this.
 					switch(childLevel){
 						case 'CHILD1':
