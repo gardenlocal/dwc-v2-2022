@@ -36,7 +36,6 @@ export default class MushroomCluster extends PIXI.Container {
 				// this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
 				const child1_mirrorParticles = this.creatureFirstChildren[0].childrenDimensions.length;
 				const parentIndicesForSecondChildren = this.getUniqueRandomIndices(this.creatureFirstChildren.length);
-			  console.log(parentIndicesForSecondChildren, this.creatureFirstChildren.length);
 
 				parentIndicesForSecondChildren.map(parentIndex => {
 					const child2_data = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: randomIntInRange(0, child1_mirrorParticles)};
