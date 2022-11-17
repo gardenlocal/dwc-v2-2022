@@ -78,7 +78,8 @@ export default class MushroomCluster extends PIXI.Container {
 						break;
 				} 
 				
-				// for each parentIndex, make child-mushroom
+				// for each parentParticle, make child-mushroom
+				let parentArrayIndex = 0;
 				chosenIndices.map(index => {
 					const mushroomData = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: index};
 					let child = null;
@@ -86,8 +87,9 @@ export default class MushroomCluster extends PIXI.Container {
 						console.log("single", parentCreature);
 						child = this.generateChildFromParameters(parentCreature, mushroomData);
 					} else if(parentCreatureArr.length > 0) {
-						console.log("array", parentCreatureArr.length, parentCreatureArr[index])
+						console.log("array, chosenindex", parentCreatureArr.length, index, parentCreatureArr[parentArrayIndex])
 						child = this.generateChildFromParameters(parentCreatureArr[index], mushroomData);
+						parentArrayIndex++;
 					}
 					// save children-mushroom data to this.
 					switch(childLevel){
