@@ -33,7 +33,7 @@ class App {
 
     this.user = this.createOrFetchUser()
     console.log("this.user ----------- ", this.user);
-    getAssistMode()
+    // getAssistMode()
 
     this.serverPort = window.location.hostname.includes('iptime') ? '1012' : '3000'
     this.serverUrl = `http://${window.location.hostname}`
@@ -327,6 +327,7 @@ window.submitLogin = (event) => {
 }
 
 // ACCESSIBILITY
+/*
 window.enableAccess = (event) => {
   let btn = document.getElementById("accessBtn");
   let img = document.getElementById("accessImg");
@@ -361,7 +362,7 @@ function getAssistMode(){
     setAssistMode()
   }
 }
-
+*/
 window.addEventListener('online', () => window.location.reload());
 window.addEventListener('offline', () => window.location.reload());
 
