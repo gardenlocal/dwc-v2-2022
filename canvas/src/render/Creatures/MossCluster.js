@@ -31,8 +31,9 @@ export default class Cluster extends PIXI.Container {
         this.messageText.scale.set(0.5)
         this.addChild(this.messageText)
 
+				const firstParticleBounds = this.creature.children[0].getLocalBounds();
         this.textBounds = this.messageText.getLocalBounds()
-        this.messageText.position.set(this.creatureBounds.x + this.creatureBounds.width / 2 - this.textBounds.width / 4, this.creatureBounds.y + this.creatureBounds.height - this.textBounds.height / 4 + 5)
+        this.messageText.position.set(firstParticleBounds.x + firstParticleBounds.width / 2 - firstParticleBounds.width / 4, firstParticleBounds.y + firstParticleBounds.height - firstParticleBounds.height / 4 + 10)
 
         //this.scale.set(scale)
         //this.rotation = rotation

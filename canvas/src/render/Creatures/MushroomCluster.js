@@ -34,7 +34,7 @@ export default class MushroomCluster extends PIXI.Container {
 				// create several second-child
 				this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
 
-        const bbox = this.creature.getLocalBounds()
+        const bbox = this.creatureTop.getLocalBounds()
         this.addChild(this.creature)
 
         const textStyle = new PIXI.TextStyle({
@@ -46,7 +46,7 @@ export default class MushroomCluster extends PIXI.Container {
         const message = new PIXI.Text(creatureName, textStyle);
         message.scale.set(0.25)
         // message.position.set(bbox.width - message.getBounds().width / 2, bbox.y + bbox.height + 10 - message.getBounds().height / 2)        
-        message.position.set(bbox.width / 2 - message.getLocalBounds().width / 8, bbox.height + 3)
+        message.position.set(bbox.width / 2 - message.getLocalBounds().width / 8 - 5, bbox.height + 3)
         this.addChild(message)
         this.message = message
 
