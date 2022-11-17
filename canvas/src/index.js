@@ -48,7 +48,6 @@ export default class PixiAppWrapper {
 
     this.pixiContainer.appendChild(this.pixiApp.view)
 
-    console.log(this.pixiContainer.children)
     this.pixiContainer.children[0].style.position = 'absolute'
     this.pixiContainer.children[0].style.top = '0px'
     this.pixiContainer.children[0].style.left = '0px'

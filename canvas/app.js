@@ -45,7 +45,6 @@ class App {
     
     await this.pixiApp.loadAssets()
     this.pixiApp.resizeAppToWindow()
-    console.log("this.pixiApp.loadAssets() ============= ", this.pixiApp.loadAssets);
     // update 2022: send url query to match garden position
     // console.log("window.location.href ", window.location.href);
     let gardenSectionX = "";
