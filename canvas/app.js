@@ -58,9 +58,9 @@ class App {
       for(const q of queries) {
         // console.log(q);
         let coordinateArr = q.split("=");
-        if(coordinateArr[0] === "x") {
+        if(coordinateArr[0] === "x" || coordinateArr[0] === "X") {
           gardenSectionX = coordinateArr[1];
-        } else if(coordinateArr[0] === "y") {
+        } else if(coordinateArr[0] === "y" || coordinateArr[0] === "Y") {
           gardenSectionY = coordinateArr[1];
         }
       }
