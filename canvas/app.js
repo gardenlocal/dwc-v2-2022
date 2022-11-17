@@ -142,7 +142,7 @@ class App {
 
   onSocketConnect = () => {
     if (this.getIsAdmin()) {
-      this.socket.emit('adminConnect', {})
+      this.socket.emit('adminConnect', {query: {creatureType: "all"}})
     }
   }
 
