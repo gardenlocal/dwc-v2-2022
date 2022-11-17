@@ -30,50 +30,9 @@ export default class MushroomCluster extends PIXI.Container {
 
 				// create several first-child 
 				this.generateRandomChildren(this.firstChildrenNum, 'CHILD1', this.creatureTop);
-			/*
-				let randomIndices = [];
-				for(let i = 0; i < this.firstChildrenNum; i++){
-					let parentIndex = randomIntInRange(0, mainSectionChildren.length);
-					randomIndices.push(parentIndex);
-				}
-				this.chosenParentIndices1 = [...new Set(randomIndices)]; // make array with unique random nums
-				console.log(this.chosenParentIndices1);
-
-				this.chosenParentIndices1.map(index => {
-					const mushroomData = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: index};
-					const child1 = this.generateChildFromParameters(this.creatureTop, mushroomData);
-					this.creatureFirstChildren.push(child1);
-					this.creature.addChild(child1);
-				})
-				*/
 
 				// create several second-child
-				console.log(this.creatureFirstChildren)
 				this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
-				console.log(this.creatureSecondChildren)
-
-				/*
-				let randomIndices2 = [];
-				for(let i = 0; i < this.secondChildrenNum; i++){
-					let parentIndex = randomIntInRange(0, this.secondChildrenNum);
-					randomIndices2.push(parentIndex);
-				}
-				this.chosenParentIndices2 = [...new Set(randomIndices2)]; // make array with unique random nums
-
-				this.chosenParentIndices2.map(index => {
-					let randomIndex = randomIntInRange(0, mirrorSectionChildren.length);
-					const mushroomData = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: randomIndex};
-					const child = this.generateChildFromParameters(this.creatureFirstChildren[index], mushroomData);
-					this.creatureSecondChildren.push(child);
-					this.creature.addChild(child);
-				})
-				*/
-
-
-				// create only 1 second-child
-				// let randomIndex = randomIntInRange(0, this.creatureFirstChildren.length);
-        // this.creatureSecondChild = this.generateChildFromParameters(this.creatureFirstChildren[randomIndex], this.evolutions[this.evolutionIndex])
-				// this.creature.addChild(this.creatureSecondChild);
 
         const bbox = this.creature.getLocalBounds()
         this.addChild(this.creature)
@@ -150,7 +109,6 @@ export default class MushroomCluster extends PIXI.Container {
         const bottomBBox = creatureBottom.getBounds()                
         
 				try {
-					console.log("child-bounds error?:", parentCreature, mirrorSectionParentIndex);
 					const childBounds = parentCreature.getChildBounds(mirrorSectionParentIndex)
 					const gX = childBounds.x + childBounds.width
 					const gY = childBounds.y + childBounds.height / 2
@@ -159,7 +117,9 @@ export default class MushroomCluster extends PIXI.Container {
 					this.rotation = oldRotation
 	
 					return creatureBottom
-				} catch {
+				} catch(err) {
+					console.log("child-bounds error?:", parentCreature, mirrorSectionParentIndex);
+					console.log(err);
 					alert("새로고침을 해주세요.")
 				}
 				
