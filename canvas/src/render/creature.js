@@ -97,7 +97,7 @@ export default class Creature extends PIXI.Container {
         if (this.isAnimating) return
 
         window.APP.sendEvolveCreature(this.name)
-        window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].evolve
+        // window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].evolve
     }
 
     onMouseDown = async (e) => {     

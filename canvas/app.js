@@ -363,6 +363,7 @@ function getAssistMode(){
   }
 }
 */
+window.ASSIST_MODE = false;
 window.addEventListener('online', () => window.location.reload());
 window.addEventListener('offline', () => window.location.reload());
 
@@ -388,6 +389,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // console.log('window garden: ', window.GARDEN)
   // console.log('window mycreaturetype: ', window.MYCREATURETYPE);
 
-  window.SCREENREADER = document.getElementById('description')
-  window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].intro;
+  // window.SCREENREADER = document.getElementById('description')
+  // window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].intro;
 })
