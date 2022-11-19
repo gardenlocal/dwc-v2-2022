@@ -84,14 +84,15 @@ export default class PixiAppWrapper {
   setupLoadingScreen() {
     this.isLoading = true
     this.loadingScreen = new PIXI.Container()
-    this.loadingText = new PIXI.Text("Loading...", new PIXI.TextStyle({
-      fontSize: 20,
+    this.loadingText = new PIXI.Text("garden.local...", new PIXI.TextStyle({
+      fontFamily: 'Dongle',
+      fontSize: 100,
       fill: "black",
     }))
-    // this.loadingScreen.addChild(this.loadingText)
+    this.loadingScreen.addChild(this.loadingText)
     const bbox = this.loadingScreen.getBounds()
     this.loadingScreen.pivot.set(bbox.width, bbox.height)
-    this.loadingScreen.position.set(this.GARDEN_WIDTH / 2, this.GARDEN_HEIGHT / 2)
+    this.loadingScreen.position.set(this.GARDEN_WIDTH / 2 + bbox.width/2, this.GARDEN_HEIGHT / 2)
 
     this.pixiApp.stage.addChild(this.loadingScreen)
   }

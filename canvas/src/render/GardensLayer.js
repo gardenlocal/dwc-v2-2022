@@ -17,7 +17,7 @@ export default class GardensLayer extends PIXI.Container {
     this.userGarden = selfGarden
     this.tapTimestamp = 0
     this.owner = null;
-		console.log("GardenLayer: ", this.userGarden);
+		console.log("GardenLayer: ", {...this.userGarden});
     this.drawBackgrounds()
   }
 
