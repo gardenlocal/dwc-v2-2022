@@ -100,7 +100,7 @@ export default class GardensLayer extends PIXI.Container {
 }
 
   onGardenButtonClick = () => {
-    window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].move;
+    // window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].move;
 
     let globalCoordinate = new PIXI.Point(randomInRange(0, window.innerWidth), randomInRange(100, window.innerHeight-100))
     let local = this.toLocal(globalCoordinate)

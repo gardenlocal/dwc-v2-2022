@@ -172,7 +172,7 @@ export default class ResidueBackground extends PIXI.Container {
   }
 
   async appear(target, duration, shape, anchor, shaderSpeed) {
-    window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].tileAppear;
+    // window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].tileAppear;
 
     this.visible = true
     this.isAnimating = true
@@ -202,7 +202,7 @@ export default class ResidueBackground extends PIXI.Container {
   }
 
   async disappear(target, duration) {
-    window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].tileDisappear;
+    // window.SCREENREADER.textContent = ALTTEXT_KO[window.GARDEN].tileDisappear;
 
     this.isAnimating = true
     const intermediateTransitionAlpha = target  // disappear from target
