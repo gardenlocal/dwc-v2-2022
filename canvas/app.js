@@ -366,6 +366,18 @@ function getAssistMode(){
 window.ASSIST_MODE = false;
 window.addEventListener('online', () => window.location.reload());
 window.addEventListener('offline', () => window.location.reload());
+window.addEventListener("resize", (event) => {
+  // console.log("resize");
+  // alert("resize");
+  location.reload();
+});
+
+const ScreenOrientation = window.screen.orientation;
+ScreenOrientation.onchange = () => {
+  // alert("orientation");
+  // cconsole.log("orientation change");
+  location.reload();
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   let userStr = localStorage.getItem("user")
