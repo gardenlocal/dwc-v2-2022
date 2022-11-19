@@ -171,7 +171,7 @@ export default class SVGLayer extends PIXI.Graphics {
         // console.log("///////// sVG creature layer alpha opacity")
         this.clear()
         //this.setStyle(this.svgObj.__style, this.svgObj.__matrix)
-        this.beginFill(this.fillColor, 0.75)
+        this.beginFill(this.fillColor, 0.65)
         this.drawFillAndStroke()
         this.endFill()
         // this.cacheAsBitmap = true
