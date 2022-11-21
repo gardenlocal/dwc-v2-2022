@@ -152,7 +152,7 @@ export class SVGNode extends PIXI.Graphics {
 				}
 				default: {
 					// @if DEBUG
-					console.info("[SVGUtils] <%s> elements unsupported", child.nodeName);
+					// getconsole.info("[SVGUtils] <%s> elements unsupported", child.nodeName);
 					// @endif
 					break;
 				}
