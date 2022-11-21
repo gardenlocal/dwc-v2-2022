@@ -65,7 +65,7 @@ export default class Creature extends PIXI.Container {
 
         this.firstTargetPositionUpdateComplete = false
         this.updateTargetPosition(state.animatedProperties.position)
-        const label = new PIXI.Text(this.displayText, new PIXI.TextStyle({ fontSize: 10 }))        
+        // const label = new PIXI.Text(this.displayText, new PIXI.TextStyle({ fontSize: 10 }))        
         // this.creature.addChild(label)
         // label.cacheAsBitmap = true
 
