@@ -63,7 +63,8 @@ export default class GardensLayer extends PIXI.Container {
       }
     })
 
-    this.drawGardenName(currentUser);
+    // disable to debug rendering speed issue
+    // this.drawGardenName(currentUser);
   }
 
   drawGardenName(currentUser) {
