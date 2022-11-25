@@ -14,47 +14,48 @@ export default class MushroomCluster extends PIXI.Container {
 
         this.evolutions = evolutions
         this.evolutionIndex = evolutionIndex % evolutions.length
-				this.randomEvolutionIndex = randomIntInRange(0, evolutions.length);
-				this.chosenParentIndices1 = [];  // parent indices for first-children
-				this.chosenParentIndices2 = []; // parent indices for second-children
+		this.randomEvolutionIndex = randomIntInRange(0, evolutions.length);
+		this.chosenParentIndices1 = [];  // parent indices for first-children
+		this.chosenParentIndices2 = []; // parent indices for second-children
 
         const { mainSectionChildren, mirrorSectionScale, mirrorSectionChildren, mirrorSectionParentIndex } = this.evolutions[this.evolutionIndex]
-				this.firstChildrenNum = randomIntInRange(2, mainSectionChildren.length+1);
-				this.secondChildrenNum = randomIntInRange(1, this.firstChildrenNum-1);
+		this.firstChildrenNum = randomIntInRange(2, mainSectionChildren.length+1);
+		this.secondChildrenNum = randomIntInRange(1, this.firstChildrenNum-1);
         this.creature = new PIXI.Container()
 
         this.creatureTop = new MushroomParticle(this.creatureType, this.elementType, mainSectionChildren, fillColor)        
         this.creature.addChild(this.creatureTop);
-				this.creatureFirstChildren = [];
-				this.creatureSecondChildren = [];
+		this.creatureFirstChildren = [];
+		this.creatureSecondChildren = [];
 
-				// create several first-child 
-				this.generateRandomFirstChildren(this.firstChildrenNum, 'CHILD1', this.creatureTop);
+		// create several first-child 
+		this.generateRandomFirstChildren(this.firstChildrenNum, 'CHILD1', this.creatureTop);
 
-				// create several second-child
+		// create several second-child
 
-				// this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
-				const child1_mirrorParticles = this.creatureFirstChildren[0].childrenDimensions.length;
-				const parentIndicesForSecondChildren = this.getUniqueRandomIndices(this.creatureFirstChildren.length);
+		// this.generateRandomChildren(this.secondChildrenNum, 'CHILD2', null, this.creatureFirstChildren);
+		const child1_mirrorParticles = this.creatureFirstChildren[0].childrenDimensions.length;
+		const parentIndicesForSecondChildren = this.getUniqueRandomIndices(this.creatureFirstChildren.length);
 
-				parentIndicesForSecondChildren.map(parentIndex => {
-					const child2_data = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: randomIntInRange(0, child1_mirrorParticles)};
-					const child2 = this.generateChildFromParameters(this.creatureFirstChildren[parentIndex], child2_data)	
-					this.creatureSecondChildren.push(child2);
-					this.creature.addChild(child2);
-				})
+		parentIndicesForSecondChildren.map(parentIndex => {
+			const child2_data = {...this.evolutions[this.randomEvolutionIndex], mirrorSectionParentIndex: randomIntInRange(0, child1_mirrorParticles)};
+			const child2 = this.generateChildFromParameters(this.creatureFirstChildren[parentIndex], child2_data)	
+			this.creatureSecondChildren.push(child2);
+			this.creature.addChild(child2);
+		})
 
         const bbox = this.creatureTop.getLocalBounds()
         this.addChild(this.creature)
 
         const textStyle = new PIXI.TextStyle({
-            fontSize: 50,
+            fontSize: 18,
             fill: fillColor,
             fontFamily: 'Dongle',
             stroke: "white",
+			padding: 24
         })
         const message = new PIXI.Text(creatureName, textStyle);
-        message.scale.set(0.25)
+        message.scale.set(1)
         // message.position.set(bbox.width - message.getBounds().width / 2, bbox.y + bbox.height + 10 - message.getBounds().height / 2)        
         message.position.set(bbox.width / 2 - message.getLocalBounds().width / 8 - 5, bbox.height + 3)
         this.addChild(message)

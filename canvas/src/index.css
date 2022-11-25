@@ -94,7 +94,7 @@ input[type="radio"] {
 body{
  overflow: hidden;
  font-size: 2.8rem;
- font-family: 'Dongle';
+ font-family: 'Dongle', sans-serif;
 }
 
 #root {
@@ -111,7 +111,7 @@ body h1 {
   overflow: hidden;
   clip: rect(1px 1px 1px 1px); /* IE 7+ only support clip without commas */
   clip: rect(1px, 1px, 1px, 1px); /* All other browsers */
-  font-family: 'Dongle';
+  font-family: 'Dongle', sans-serif;
 }
 .intro {
   height: 100vh;
@@ -148,7 +148,7 @@ body h1 {
   align-items: center;
   text-align: center;
   font-size: 28px;
-  font-family: 'Dongle';
+  font-family: 'Dongle', sans-serif;
   width: 100%;
   max-width: 500px;
   opacity: 1;
@@ -185,7 +185,7 @@ input#creatureName {
   margin-bottom: 5.0rem;
 
   font-size: 28px;
-  font-family: 'Dongle';
+  font-family: 'Dongle', sans-serif;
   text-align: center;
   border-top: none;
   border-left: none;
@@ -194,7 +194,7 @@ input#creatureName {
   background-color: rgba(0, 0, 0, 0);
 }
 button#submit {
-  font-family: 'Dongle';
+  font-family: 'Dongle', sans-serif;
   height: 4.0rem;
   height: 100%;
   width: 100%;
@@ -235,7 +235,7 @@ button#accessBtn{
 }
 button{
   margin-bottom: 0;
-  font-family: 'Dongle';
+  font-family: 'Dongle', sans-serif;
   border-radius: 30px;
   border: 2px solid #000000;
   background-color: #ffffff;
