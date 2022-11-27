@@ -17,23 +17,27 @@ export default class LichenCluster extends PIXI.Container {
 
         // this.creatureBounds = this.getLocalBounds()//this.creature.getLocalBounds()        
         const textStyle = new PIXI.TextStyle({
-            fontSize: 18,
+            fontSize: 48,
             fontFamily: 'Dongle',
             fill: fillColor,
             stroke: "white",
-            padding: 24
+            padding: 12
         })
 
         // this.pivot.set(this.selfBbox.width / 2, this.selfBbox.height / 2)
 
         this.messageText = new PIXI.Text(creatureName, textStyle);
-        this.messageText.scale.set(1)
+        this.messageText.scale.set(0.4);
+        if(scale < 2) {
+			this.messageText.scale.set(0.8);
+		}
+        this.messageText.roundPixels = true;
         this.addChild(this.messageText)
         this.textBounds = this.messageText.getLocalBounds()
         this.messageText.pivot.set(this.textBounds.width / 2, this.textBounds.height / 2)        
-
+        
         this.creatureBounds = this.creature.parentElement.getLocalBounds()//this.creature.getLocalBounds()
-        this.messageText.position.set(-15, this.creatureBounds.height / 2 + 5)
+        this.messageText.position.set(-this.creatureBounds.width, this.creatureBounds.height/2 + 10)
 
 
         this.scale.set(scale+0.25)

@@ -18,18 +18,23 @@ export default class Cluster extends PIXI.Container {
 
         this.creatureBounds = this.creature.getLocalBounds()
         const textStyle = new PIXI.TextStyle({
-            fontSize: 18,
+            fontSize: 48,
             fill: fillColor,
             stroke: "white",
             fontFamily: 'Dongle',
-            padding: 24
+            padding: 12
         })
 
         this.pivot.set(this.selfBbox.width / 2, this.selfBbox.height / 2)
 
         this.messageText = new PIXI.Text(creatureName, textStyle);
         this.messageText.position.set(0, 0)
-        this.messageText.scale.set(1)
+
+        this.messageText.scale.set(0.4);
+        if(scale < 2) {
+			this.messageText.scale.set(1.2);
+		}
+        this.messageText.roundPixels = true;
         this.addChild(this.messageText)
 
         const firstParticleBounds = this.creature.children[0].getLocalBounds();
